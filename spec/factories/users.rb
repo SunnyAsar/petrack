@@ -5,7 +5,7 @@ FactoryBot.define do
     email { Faker::Internet.email }
     location { Faker::Nation.capital_city }
     phone { Faker::PhoneNumber.cell_phone }
-    password_digest { 'password' }
+    password { 'password' }
     active { true }
     admin { false }
 
