@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class Api::V1::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
@@ -8,13 +8,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def index 
+    render json: User.all
+  end
+
   def show
   end
 
-
   private
 
-  def user_params 
+  def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :admin,
     :active, :phone, :location, :password, :password_confirmation)
   end

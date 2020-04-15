@@ -10,11 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_14_143341) do
+ActiveRecord::Schema.define(version: 2020_04_15_172127) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "pets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "age"
+    t.string "location"
+    t.text "details"
+    t.uuid "category_id", null: false
+    t.uuid "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_pets_on_category_id"
+    t.index ["user_id"], name: "index_pets_on_user_id"
+  end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name"
@@ -29,4 +48,6 @@ ActiveRecord::Schema.define(version: 2020_04_14_143341) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "pets", "categories"
+  add_foreign_key "pets", "users"
 end
