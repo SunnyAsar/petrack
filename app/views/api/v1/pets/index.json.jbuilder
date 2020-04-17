@@ -1,0 +1,1 @@
+json.partial! 'api/v1/pets/pet', collection: @pets, as: :pet

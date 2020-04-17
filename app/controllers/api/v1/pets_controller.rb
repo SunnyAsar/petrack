@@ -3,7 +3,7 @@ class Api::V1::PetsController < ApplicationController
 
   def index
     @pets = Pet.all.includes(:category)
-    render json: @pets
+    render :index, status: :ok
   end
 
   def create
@@ -17,7 +17,7 @@ class Api::V1::PetsController < ApplicationController
   end
 
   def show
-    render json: @pet, staus: :ok
+    render :show, staus: :ok
   end
 
   def update
